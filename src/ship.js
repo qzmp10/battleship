@@ -3,14 +3,36 @@ export class Ship {
         this.length = length;
         this.zones = this.createZones();
     }
+
+    reset() {
+        this.zones = this.createZones();
+    }
     
     createZones(zones = this.length) {
         let zonesObject = {};
         for(let i = 0; i < zones; i++) {
-            zonesObject[`zone${i + 1}`] = "";
+            zonesObject[`zone${i + 1}`] = "intact";
         } 
         
         return zonesObject;
+    }
+
+    hit(number) {
+
+        if(number > Object.keys(this.zones).length) {
+            return this.zones;
+        } else {
+            this.zones[`zone${number}`] = "hit";
+            return this.zones;
+        }
+    }
+
+    isSunk() {
+        if(Object.values(this.zones).every(value => value == "hit")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
