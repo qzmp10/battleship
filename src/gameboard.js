@@ -127,6 +127,7 @@ export class Gameboard {
         } else {
             this.gameboard[position].miss = true;
         }
+
     }
 
     areAllShipsSunk() {
