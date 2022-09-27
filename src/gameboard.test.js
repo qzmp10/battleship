@@ -113,7 +113,7 @@ test('ships exist', () => {
 })
 
 test('placing ship horizontally modifies gameboard horizontally', () => {
-    board.placeShip('horizontal', 5, 0);
+    board.placeShip('horizontal', 5, 0, 'carrier');
 
     expect(board.gameboard[0].ship).toBe(true);
     expect(board.gameboard[1].ship).toBe(true);
@@ -124,10 +124,77 @@ test('placing ship horizontally modifies gameboard horizontally', () => {
 })
 
 test('placing ship vertically modifies gameboard vertically', () => {
-    board.placeShip('vertical', 3, 37);
+    board.placeShip('vertical', 3, 37, 'submarine');
     expect(board.gameboard[37].ship).toBe(true);
     expect(board.gameboard[47].ship).toBe(true);
     expect(board.gameboard[57].ship).toBe(true);
     expect(board.gameboard[67].ship).toBe(false);
 })
 
+test('if placeship length < 2 || > 5, return', () => {
+    board.placeShip('vertical', 1, 56);
+    expect(board.gameboard[56].ship).toBe(false);
+    board.placeShip('horizontal', 6, 12);
+    expect(board.gameboard[12].ship).toBe(false);
+})
+
+test('if ship length exceeds gameboard space, return', () => {
+    board.placeShip('vertical', 4, 87, 'battleship');
+    expect(board.gameboard[87].ship).toBe(false);
+    expect(board.gameboard[97].ship).toBe(false);
+
+    board.placeShip('horizontal', 3, 18, 'submarine');
+    expect(board.gameboard[18].ship).toBe(false);
+    expect(board.gameboard[19].ship).toBe(false);
+})
+
+test('placed ship on gameboard has type property', () => {
+    board.placeShip('vertical', 2, 77, 'battleship');
+    expect(board.gameboard[77].type).toBe('battleship');
+    expect(board.gameboard[87].type).toBe('battleship');
+    board.placeShip('horizontal', 3, 12, 'submarine');
+    expect(board.gameboard[12].type).toBe('submarine');
+    expect(board.gameboard[13].type).toBe('submarine');
+    expect(board.gameboard[14].type).toBe('submarine');
+})
+
+test('receiveAttack changes gameboard area state', () => {
+    board.receiveAttack(77);
+    expect(board.gameboard[77].state).toBe('hit');
+})
+
+test('receiveAttack checks if position is part of ship', () => {
+    board.placeShip('vertical', 5, 14, 'carrier');
+    board.receiveAttack(24);
+    expect(board.gameboard[24].ship).toBe(true);
+})
+
+test('if position is part of ship, receiveAttack also marks the ship zone equivalent to the position', () => {
+board.placeShip('horizontal', 3, 35, 'cruiser');
+board.placeShip('vertical', 4, 46, 'battleship');
+board.receiveAttack(37);
+board.receiveAttack(36);
+board.receiveAttack(56);
+board.receiveAttack(66);
+expect(board.cruiser.zones).toMatchObject({zone1: 'intact', zone2: 'hit', zone3: 'hit'});
+expect(board.battleship.zones).toMatchObject({zone1: 'intact', zone2: 'hit', zone3: 'hit', zone4: 'intact'});
+})
+
+test('if position is not part of ship, returns miss', () => {
+    board.placeShip('horizontal', 5, 4, 'carrier');
+    board.receiveAttack(17);
+    expect(board.gameboard[17].miss).toBe(true);
+}) 
+
+test('if not all ships are sunk, return false', () => {
+    expect(board.areAllShipsSunk()).toBe(false);
+})
+
+test('if all ships are sunk, return true', () => {
+    board.carrier.sinkShip();
+    board.battleship.sinkShip();
+    board.cruiser.sinkShip();
+    board.submarine.sinkShip();
+    board.destroyer.sinkShip();
+    expect(board.areAllShipsSunk()).toBe(true);
+})

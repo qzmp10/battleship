@@ -42,5 +42,9 @@ test('if all zone values are hit, isSunk returns true', () => {
     expect(fourShip.isSunk()).toBe(true);
 }) 
 
+test('sinkShip works', () => {
+    twoShip.sinkShip();
+    expect(twoShip.zones).toMatchObject({zone1: 'hit', zone2: 'hit'});
+})
 
     

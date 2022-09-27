@@ -34,6 +34,14 @@ export class Ship {
             return false;
         }
     }
+
+    sinkShip() {
+
+        for(let i =0; i < this.length; i++) {
+            this.zones[`zone${i + 1}`] = 'hit';
+        }
+        
+    }
 }
 
 export const fourShip = new Ship(4);
