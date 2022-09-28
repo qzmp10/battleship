@@ -5,13 +5,10 @@ import { Player } from "./player";
 
 async function getNumber() {
     try {
-        let firstNumber = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=0&max=9&count=1");
-        let secondNumber = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=0&max=4&count=1");
-        const firstjson = await firstNumber.json();
-        const secondjson = await secondNumber.json();
-        let stringNumber = String(firstjson) + String(secondjson);
-        let randomNumber = Number(stringNumber);
-        return randomNumber;
+        let number = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=0&max=9&count=1");
+        const randomNumber = await number.json();
+        console.log(randomNumber)
+        return Number(randomNumber);
     } catch (error) {
         console.log(error);
     }
@@ -24,41 +21,41 @@ let startingPosition = await getNumber();
 
 async function placeCarrier() {
     try {
-        console.log(startingPosition);
-        CPU.ownBoard.placeShip('horizontal', 5, startingPosition, 'carrier');
-    } catch (error){
-        console.log(error)
-    }
-
-}
-
-async function placeBattleship() {
-    try{
-    if(startingPosition < 30) {
-        let battleshipPosition = startingPosition + 11;
-        CPU.ownBoard.placeShip('horizontal', 4, battleshipPosition, 'battleship');
-        return battleshipPosition;
-    } else {
-        let battleshipPosition = startingPosition - 19;
-        CPU.ownBoard.placeShip('horizontal', 4, battleshipPosition, 'battleship');
-        return battleshipPosition;
-    }
-    } catch (error){
-        console.log(error);
-    }
-
-}
-
-let secondPosition = await placeBattleship();
-
-async function placeSubmarine() {
-    try {
-        console.log(secondPosition);
+        CPU.ownBoard.placeShip('vertical', 5, startingPosition, 'carrier');
     } catch(error) {
         console.log(error);
     }
 }
 
+async function placeBattleship() {
+    try {
+        if(startingPosition < 5) {
+            let position = startingPosition + 33;
+            CPU.ownBoard.placeShip('vertical', 4, position, 'battleship');
+        } else {
+            let position = startingPosition + 27;
+            CPU.ownBoard.placeShip('vertical', 4, position, 'battleship');
+        }
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+async function placeSubmarine() {
+    try {
+        if(startingPosition < 5) {
+            let position = startingPosition + 25;
+            CPU.ownBoard.placeShip('vertical', 3, position, 'submarine');
+        } else {
+            let position = startingPosition + 15;
+            CPU.ownBoard.placeShip('vertical', 3, position, 'submarine');
+        }
+
+    } catch(error) {
+        console.log(error);
+    }
+}
 
 placeCarrier();
 placeBattleship();
@@ -99,8 +96,10 @@ cpuArea.forEach(area => {
         console.log(area.dataset.idCpu)
         CPU.ownBoard.receiveAttack(area.dataset.idCpu)
         console.log(CPU.ownBoard.gameboard[area.dataset.idCpu]);
+        area.classList.add('hit')
     })
 })
+
 
 
 
