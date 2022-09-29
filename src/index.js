@@ -3,11 +3,41 @@ import { Gameboard } from "./gameboard";
 import { Ship } from "./ship";
 import { Player } from "./player";
 
+// probably could have made one async function that returned multiple numbers but whats done is done...
 async function getNumber() {
     try {
         let number = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=0&max=9&count=1");
         const randomNumber = await number.json();
-        console.log(randomNumber)
+        return Number(randomNumber);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function getNumber2() {
+    try {
+        let number = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=6&max=9&count=1");
+        const randomNumber = await number.json();
+        return Number(randomNumber);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function getNumber3() {
+    try {
+        let number = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=94&max=97&count=1");
+        const randomNumber = await number.json();
+        return Number(randomNumber);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function getNumber4() {
+    try {
+        let number = await fetch("http://www.randomnumberapi.com/api/v1.0/random?min=91&max=94&count=1");
+        const randomNumber = await number.json();
         return Number(randomNumber);
     } catch (error) {
         console.log(error);
@@ -18,6 +48,30 @@ const playerOne = new Player('player1');
 const CPU = new Player('CPU');
 
 let startingPosition = await getNumber();
+console.log(startingPosition);
+
+async function getCruiserAndDestroyerNumbers() {
+
+    try {
+        if(startingPosition < 5) {
+
+            let cruiserPosition = await getNumber3();
+            let destroyerPosition = (await getNumber2() * 10) + 1;
+            return { cruiserPosition, destroyerPosition };
+
+        } else if (startingPosition >= 5) {
+
+            let cruiserPosition = await getNumber4();
+            let destroyerPosition  = (await getNumber2() * 10) + 8;
+
+            return { cruiserPosition, destroyerPosition };
+
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 async function placeCarrier() {
     try {
@@ -57,9 +111,25 @@ async function placeSubmarine() {
     }
 }
 
-placeCarrier();
-placeBattleship();
-placeSubmarine();
+async function placeCruiser() {
+    try {
+        let position = await getCruiserAndDestroyerNumbers();
+        console.log(position['cruiserPosition']);
+        CPU.ownBoard.placeShip('horizontal', 3, position['cruiserPosition'], 'cruiser');
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+async function placeDestroyer() {
+    try {
+        let position = await getCruiserAndDestroyerNumbers();
+        console.log(position['destroyerPosition']);
+        CPU.ownBoard.placeShip('horizontal', 2, position['destroyerPosition'], 'destroyer');
+    } catch(error) {
+        console.log(error);
+    }
+}
 
 const playerBoard = document.querySelector('.player-container');
 const cpuBoard = document.querySelector('.cpu-container');
@@ -99,6 +169,13 @@ cpuArea.forEach(area => {
         area.classList.add('hit')
     })
 })
+
+placeCarrier();
+placeBattleship();
+placeSubmarine();
+placeCruiser();
+placeDestroyer();
+
 
 
 
