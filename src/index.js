@@ -133,6 +133,10 @@ async function placeDestroyer() {
 
 const playerBoard = document.querySelector('.player-container');
 const cpuBoard = document.querySelector('.cpu-container');
+const beginBtn = document.querySelector('.begin');
+const directionBtn = document.querySelector('.direction');
+const announcementDiv = document.querySelector('.announcements');
+
 
 let counter = 0;
 
@@ -169,6 +173,189 @@ cpuArea.forEach(area => {
         area.classList.add('hit')
     })
 })
+
+let mode = 'vertical';
+
+directionBtn.addEventListener('click', () => {
+
+    if(mode == 'vertical') {
+        mode = 'horizontal'
+        directionBtn.textContent = 'Switch to Vertical';
+    } else {
+        mode = 'vertical';
+        directionBtn.textContent = 'Switch to Horizontal';
+    }
+
+
+})
+
+beginBtn.addEventListener('click', () => {
+
+function playerBattleship() {
+
+    announcementDiv.textContent = 'Place your battleship!';
+
+    playerArea.forEach(area => {
+
+        area.addEventListener('mouseover', () => {
+            if(mode == 'vertical') {
+                if(area.dataset.idPlayer >= 70) {
+                    area.classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.add('error');
+                } else {
+                    area.classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.add('selecting');
+                }    
+            } else {
+                
+                if(Number(area.dataset.idPlayer.slice(1,2)) + 4 > 10) {
+                    area.classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.add('error');
+                } else {
+                    area.classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.add('selecting');
+                }
+            }
+        })
+
+        area.addEventListener('mouseout', () => {
+            if(mode == 'vertical') {
+                area.classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.remove('selecting', 'error');
+            } else {
+                area.classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.remove('selecting', 'error');
+            }
+        })
+
+        area.addEventListener('click', () => {
+
+            if(area.classList.contains('error')) {
+                return;
+            }
+
+            if(mode == 'vertical') {
+                playerOne.ownBoard.placeShip('vertical', 4, Number(area.dataset.idPlayer), 'battleship');
+                area.classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.add('placed');
+                return;
+            } else {
+                playerOne.ownBoard.placeShip('horizontal', 4, Number(area.dataset.idPlayer), 'battleship');
+                area.classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.add('placed');
+                return;
+            }
+        })
+    })
+}
+
+function playerCruiser() {
+
+    announcementDiv.textContent = 'Place your cruiser!';
+
+    playerArea.forEach(area => {
+
+        area.addEventListener('mouseover', () => {
+            if(mode == 'vertical') {
+                if(area.dataset.idPlayer >= 60) {
+                    area.classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 40}'`).classList.add('error');
+                } else {
+                    area.classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 40}'`).classList.add('selecting');
+                }    
+            } else {
+                
+                if(Number(area.dataset.idPlayer.slice(1,2)) + 5 > 10) {
+                    area.classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.add('error');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 4}'`).classList.add('error');
+                } else {
+                    area.classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.add('selecting');
+                    document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 4}'`).classList.add('selecting');
+                }
+
+            }
+        })
+
+        area.addEventListener('mouseout', () => {
+            if(mode == 'vertical') {
+                area.classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 40}'`).classList.remove('selecting', 'error');
+            } else {
+                area.classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.remove('selecting', 'error');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 4}'`).classList.remove('selecting', 'error');
+            }
+        })
+
+        area.addEventListener('click', () => {
+
+            if(area.classList.contains('error')) {
+                return;
+            }
+
+            if(mode == 'vertical') {
+                playerBoard.classList.add('cruiser');
+                playerOne.ownBoard.placeShip('vertical', 5, Number(area.dataset.idPlayer), 'cruiser');
+                area.classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 10}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 20}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 30}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 40}'`).classList.add('placed');
+                return;
+            } else {
+                playerBoard.classList.add('cruiser');
+                playerOne.ownBoard.placeShip('horizontal', 5, Number(area.dataset.idPlayer), 'cruiser');
+                area.classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 2}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 3}'`).classList.add('placed');
+                document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 4}'`).classList.add('placed');
+                return;
+            }   
+        })
+    })
+}
+
+playerCruiser();
+playerBattleship();
+
+});
+
+
 
 placeCarrier();
 placeBattleship();
