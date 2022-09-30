@@ -191,6 +191,10 @@ directionBtn.addEventListener('click', () => {
 
 beginBtn.addEventListener('click', () => {
 
+    // WHAT IF YOU USE A PLACING VARIABLE EX: let placing = 'cruiser'... THAT LETS YOU CHANGE WHICH SHIP IS BEING PLACED...
+    // WHEN ITS DONE, PLACING = EXIT, AND THERE ARE NO MOUSEOVER EFFECTS LEFT AND THE FUNCTION EXITS...
+    //T RY THAT SHIT
+
 function playerBattleship() {
 
     announcementDiv.textContent = 'Place your battleship!';
