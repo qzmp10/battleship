@@ -211,6 +211,11 @@ export function startGame() {
                         return;   
                     }
                 }
+            }   
+            
+            if(playerOne.ownBoard.areAllShipsSunk()) {
+                alert('CPU wins!');
+                resetGame();
             }
         })
     });
