@@ -21,11 +21,7 @@
 .area {
     width: 3rem;
     height: 3rem;
-    background-color: rgb(194, 194, 194);
-}
-
-.hit {
-    background-color: rgb(51, 255, 0);
+    background-color: rgb(116, 116, 116);
 }
 
 .selecting {
@@ -36,6 +32,22 @@
     background-color: red ;
 }
 
+
 .placed {
     background-color: blueviolet;
 }
+
+.hit {
+    background-color: rgb(255, 0, 0);
+}
+
+.miss {
+    background-color: rgb(211, 211, 211);
+}
+
+
+
+
+
+
+
