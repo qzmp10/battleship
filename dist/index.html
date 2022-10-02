@@ -5,20 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="player-container">
-        </div>
+        <h2>BATTLESHIP</h2>
+        <h1 class="announcements">Place your ship!</h1>
+        <button class="direction vertical"> Rotate ship </button>
+        <div class="container-2">
+            <div class="sub-container">
+                <div class="player-header">Your Board</div>
+                <div class="player-container"></div>
+            </div>
     
-        <div class="cpu-container">
+            <div class="sub-container">
+                <div class="cpu-header">CPU board</div>
+                <div class="cpu-container"></div>
+            </div>
         </div>
+
     </div>
 
-    <button class="begin">Begin!</button>
-    <button class="direction vertical"> Switch to Horizontal </button>
 
-    <div class="announcements">Place your ship!</div>
 </body>
 <script src="main.js"></script>
 </html>

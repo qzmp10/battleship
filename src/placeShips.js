@@ -334,10 +334,12 @@ playerArea.forEach(area => {
                 document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('placed');
             }
             placing = 'done';
-            announcementDiv.textContent = 'TIME TO ATTACK THE ENEMY SHIP!';
+            announcementDiv.textContent = 'NOW ATTACK THE ENEMY SHIP!';
             startGame();
             return;
         }
-    })
+    });
+
+    
 });
 }

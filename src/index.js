@@ -168,10 +168,8 @@ directionBtn.addEventListener('click', () => {
 
     if(mode == 'vertical') {
         mode = 'horizontal'
-        directionBtn.textContent = 'Switch to Vertical';
     } else {
         mode = 'vertical';
-        directionBtn.textContent = 'Switch to Horizontal';
     }
 });
 
