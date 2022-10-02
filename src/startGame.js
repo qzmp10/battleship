@@ -1,4 +1,8 @@
-function startGame() {
+import { CPU, playerOne } from "./index";
+import { cpuArea } from "./index";
+import { resetGame } from "./resetGame";
+
+export function startGame() {
     
     let previousNumber = 0;
     let placeHolder = 0;
@@ -18,6 +22,7 @@ function startGame() {
             }
             if(CPU.ownBoard.areAllShipsSunk()) {
                 alert('Player 1 wins!');
+                resetGame();
             }
             
             if(previousAttack == 'miss') {

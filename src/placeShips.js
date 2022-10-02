@@ -1,4 +1,8 @@
 import { startGame } from "./startGame"
+import { playerArea, announcementDiv } from "./index";
+import { playerOne} from "./index"
+import { mode } from "./index"
+
 export function placeShips() {
     //GOD FORGIVE ME FOR THIS UGLY BLOCK OF CODE
 let placing = 'carrier';
@@ -330,7 +334,7 @@ playerArea.forEach(area => {
                 document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('placed');
             }
             placing = 'done';
-            announcementDiv.textContent = 'TIME TO ATTACK THE ENNEMY SHIP!';
+            announcementDiv.textContent = 'TIME TO ATTACK THE ENEMY SHIP!';
             startGame();
             return;
         }
