@@ -334,7 +334,7 @@ playerArea.forEach(area => {
                 document.querySelector(`[data-id-player='${Number(area.dataset.idPlayer) + 1}'`).classList.add('placed');
             }
             placing = 'done';
-            announcementDiv.textContent = 'NOW ATTACK THE ENEMY SHIP!';
+            announcementDiv.textContent = 'Now attack the enemy ship!';
             startGame();
             return;
         }
