@@ -131,23 +131,6 @@ test('placing ship vertically modifies gameboard vertically', () => {
     expect(board.gameboard[67].ship).toBe(false);
 })
 
-test('if placeship length < 2 || > 5, return', () => {
-    board.placeShip('vertical', 1, 56);
-    expect(board.gameboard[56].ship).toBe(false);
-    board.placeShip('horizontal', 6, 12);
-    expect(board.gameboard[12].ship).toBe(false);
-})
-
-test('if ship length exceeds gameboard space, return', () => {
-    board.placeShip('vertical', 4, 87, 'battleship');
-    expect(board.gameboard[87].ship).toBe(false);
-    expect(board.gameboard[97].ship).toBe(false);
-
-    board.placeShip('horizontal', 3, 18, 'submarine');
-    expect(board.gameboard[18].ship).toBe(false);
-    expect(board.gameboard[19].ship).toBe(false);
-})
-
 test('placed ship on gameboard has type property', () => {
     board.placeShip('vertical', 2, 77, 'battleship');
     expect(board.gameboard[77].type).toBe('battleship');
@@ -165,8 +148,11 @@ test('receiveAttack changes gameboard area state', () => {
 
 test('receiveAttack checks if position is part of ship', () => {
     board.placeShip('vertical', 5, 14, 'carrier');
+    board.placeShip('vertical', 5, 50, 'carrier')
     board.receiveAttack(24);
     expect(board.gameboard[24].ship).toBe(true);
+    expect(board.gameboard[90].ship).toBe(true);
+
 })
 
 test('if position is part of ship, receiveAttack also marks the ship zone equivalent to the position', () => {

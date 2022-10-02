@@ -20,31 +20,8 @@ export class Gameboard {
     }
 
     placeShip(direction, length, startingPosition, type) {
-        
-        let tempPosition = startingPosition;
-
-        if(length < 2 || length > 5) {
-            return;
-        }
     
         if(direction == 'horizontal') {
-
-            //math to not exceed gameboard
-
-            if(startingPosition >= 10) {
-                while(10 < tempPosition) {
-                    if(tempPosition % 10 == 0) {
-                        tempPosition / 10;
-                    } else {
-                        tempPosition %= 10;
-                    }
-                }
-            }
-
-           //dont exceed gameboard
-            if(length > 10 - tempPosition) {
-                return;
-            }
 
             for(let i = 0; i < length; i++) {
                 if(i == 0) {
@@ -59,10 +36,6 @@ export class Gameboard {
         }
 
         if(direction == 'vertical') {
-
-            if(length * 10 >= (100 - startingPosition)) {
-                return;
-            }
 
             for(let i = 0; i < length; i++) {
                 this.gameboard[startingPosition + (10 * i)].ship = true;
