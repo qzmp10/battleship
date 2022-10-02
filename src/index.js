@@ -536,9 +536,18 @@ function startGame() {
     cpuArea.forEach(cArea => {
 
         cArea.addEventListener('click', () => {
-            console.log(cArea.dataset.idCpu)
+                        
+            console.log(playerOne.ownBoard.gameboard[10].ship);
+            console.log(playerOne.ownBoard.gameboard[20].ship);
+            console.log(playerOne.ownBoard.gameboard[30].ship);
+            console.log(playerOne.ownBoard.gameboard[40].ship);
+            console.log(playerOne.ownBoard.gameboard[50].ship);
+            console.log(playerOne.ownBoard.gameboard[60].ship);
+            console.log(playerOne.ownBoard.gameboard[70].ship);
+            console.log(playerOne.ownBoard.gameboard[80].ship);
+            console.log(playerOne.ownBoard.gameboard[90].ship);
+
             CPU.ownBoard.receiveAttack(cArea.dataset.idCpu)
-            console.log(CPU.ownBoard.gameboard[cArea.dataset.idCpu]);
             if(CPU.ownBoard.gameboard[cArea.dataset.idCpu].ship == false) {
                 cArea.classList.add('miss');
             } else {
@@ -548,6 +557,7 @@ function startGame() {
 
             
             if(previousAttack == 'miss') {
+                 console.log(hitArray);
                 let randomNumber = Math.floor(Math.random() * 100);
                 while(hitArray.includes(randomNumber)) {
                     randomNumber = Math.floor(Math.random() * 100);
@@ -555,7 +565,6 @@ function startGame() {
                 hitArray.push(randomNumber);
                 previousNumber = randomNumber;
                 playerOne.ownBoard.receiveAttack(randomNumber);
-                console.log(playerOne.ownBoard.gameboard[randomNumber]);
                 if(playerOne.ownBoard.gameboard[randomNumber].ship == false) {
                     document.querySelector(`[data-id-player='${randomNumber}'`).classList.add('miss');
                     previousAttack = 'miss';
@@ -564,10 +573,14 @@ function startGame() {
                     previousAttack = 'hit';
                 }  
             } else {
+                console.log(hitArray);
+                console.log(playerOne.ownBoard.gameboard[hitArray[hitArray.length - 1]].ship);
+
                 if(counter == 0) {
                     let i = 1;
                     let x = Math.floor(Math.random() * 100);
                     placeHolder = previousNumber + 1;
+
                     while(hitArray.includes(placeHolder)) {
                         placeHolder = (placeHolder + i);
                         i++;
@@ -578,23 +591,37 @@ function startGame() {
                             x = Math.floor(Math.random() * 100);
                         }
                         playerOne.ownBoard.receiveAttack(x);
-                    } else {
-                        playerOne.ownBoard.receiveAttack(placeHolder);
-                    }
-                    
+                        hitArray.push(x);
 
-                    if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
+                        if(playerOne.ownBoard.gameboard[x].ship == false) {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('miss');
+                        } else {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('hit');
+                        }  
+                        counter +=1;
+                        return;
+                    } 
+
+                    else {
+                        playerOne.ownBoard.receiveAttack(placeHolder);
+                        hitArray.push(placeHolder);
+
+
+                        if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('miss');
-                    } else {
+                        } else {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('hit');
-                    }  
-                    counter +=1;
-                    return;
+                        }  
+                        counter += 1;
+                        return;   
+                    }
                 } 
+
                 if(counter == 1) {
                     let i = 1;
                     let x = Math.floor(Math.random() * 100);
                     placeHolder = previousNumber - 1;
+
                     while(hitArray.includes(placeHolder)) {
                         placeHolder = (placeHolder - i);
                         i++;
@@ -605,18 +632,31 @@ function startGame() {
                             x = Math.floor(Math.random() * 100);
                         }
                         playerOne.ownBoard.receiveAttack(x);
-                    } else {
-                        playerOne.ownBoard.receiveAttack(placeHolder);
-                    }
+                        hitArray.push(x);
 
-                    if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
+                        if(playerOne.ownBoard.gameboard[x].ship == false) {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('miss');
+                        } else {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('hit');
+                        }  
+                        counter +=1;
+                        return;
+                    } 
+                    
+                    else {
+                        playerOne.ownBoard.receiveAttack(placeHolder);
+                        hitArray.push(placeHolder);
+
+                        if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('miss');
-                    } else {
+                        } else {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('hit');
-                    }  
-                    counter += 1;
-                    return;
+                        }  
+                        counter += 1;
+                        return;   
+                    }
                 }
+
                 if(counter == 2) {
                     let i = 1;
                     let x = Math.floor(Math.random() * 100);
@@ -631,18 +671,31 @@ function startGame() {
                             x = Math.floor(Math.random() * 100);
                         }
                         playerOne.ownBoard.receiveAttack(x);
-                    } else {
-                        playerOne.ownBoard.receiveAttack(placeHolder);
-                    }
+                        hitArray.push(x);
 
-                    if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
+                        if(playerOne.ownBoard.gameboard[x].ship == false) {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('miss');
+                        } else {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('hit');
+                        }  
+                        counter +=1;
+                        return;
+                    } 
+                    
+                    else {
+                        playerOne.ownBoard.receiveAttack(placeHolder);
+                        hitArray.push(placeHolder);
+
+                        if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('miss');
-                    } else {
+                        } else {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('hit');
-                    }  
-                    counter += 1;
-                    return;
+                        }  
+                        counter += 1;
+                        return;   
+                    }
                 }
+
                 if(counter == 3) {
                     let i = 1;
                     let x = Math.floor(Math.random() * 100);
@@ -657,18 +710,38 @@ function startGame() {
                             x = Math.floor(Math.random() * 100);
                         }
                         playerOne.ownBoard.receiveAttack(x);
-                    } else {
-                        playerOne.ownBoard.receiveAttack(placeHolder);
-                    }
+                        hitArray.push(x);
+
+                        if(playerOne.ownBoard.gameboard[x].ship == false) {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('miss');
+
+                            previousAttack = 'miss';
+                        } else {
+                            document.querySelector(`[data-id-player='${x}'`).classList.add('hit');
+
+                            previousAttack = 'hit';
+                        }  
+
+                        counter = 0;
+                        return;
+                    } 
                     
-                    if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
+                    else {
+                        playerOne.ownBoard.receiveAttack(placeHolder);
+                        hitArray.push(placeHolder);
+
+                        if(playerOne.ownBoard.gameboard[placeHolder].ship == false) {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('miss');
-                    } else {
+
+                        previousAttack = 'miss';
+                        } else {
                         document.querySelector(`[data-id-player='${placeHolder}'`).classList.add('hit');
-                    }  
-                    previousAttack = 'miss';
-                    counter = 0;
-                    return;
+
+                        previousAttack = 'hit';
+                        }  
+                        counter = 0;
+                        return;   
+                    }
                 }
 
             }
